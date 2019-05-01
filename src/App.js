@@ -12,7 +12,7 @@ export default function App() {
   library.add(faSortUp, faSortDown);
   return (
     <div className="App">
-      <Header />
+      {/* <Header /> */}
       <HistoryChart />
       {/* <LiveRates /> */}
       {/* <Historical /> */}
