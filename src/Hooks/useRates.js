@@ -6,7 +6,7 @@
 import { useEffect, useState } from "react";
 const ENCODED_KEY = "M2UzZTE4MWZmYThlZDY5YTRkOGRkZjNlZTI1NzJlZGU=";
 const KEY_BUFF = new Buffer(ENCODED_KEY, "base64");
-const BASE_URL = "http://api.coinlayer.com/api";
+const BASE_URL = "https://api.coinlayer.com/api";
 const axios = require("axios");
 
 export function useLiveRates() {
