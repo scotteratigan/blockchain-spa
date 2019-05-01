@@ -1,15 +1,33 @@
 import React, { useState, useEffect } from "react";
-// import DatePicker from "react-datepicker";
-// import "react-datepicker/dist/react-datepicker.css";
-// import moment from "moment";
 import { useDataRange } from "../Hooks/useRates";
 import { LineChart, Line, CartesianGrid, XAxis, YAxis } from "recharts";
 import SelectDate from "./SelectDate";
 
+// todo: use my custom size hook to make the chart size responsive
+
+// default display range is 1 month:
 let defaultStartDate = new Date();
-console.log("new Date():", defaultStartDate);
 defaultStartDate.setMonth(defaultStartDate.getMonth() - 1);
-console.log("defaultStartDate: ", defaultStartDate);
+
+const defaultCoinsToChart = {
+  BTC: false,
+  ETH: true,
+  XRP: false,
+  EOS: true,
+  LTC: true,
+  BCH: false,
+  BNB: false
+};
+
+const defaultChartColors = {
+  BTC: "red",
+  ETH: "orange",
+  XRP: "yellow",
+  EOS: "green",
+  LTC: "blue",
+  BCH: "purple",
+  BNB: "black"
+};
 
 function HistoryChart() {
   const [data, setData] = useState({});
@@ -17,6 +35,7 @@ function HistoryChart() {
   const [startDate, setStartDate] = useState(defaultStartDate);
   const [endDate, setEndDate] = useState(new Date());
   const resData = useDataRange(startDate, endDate);
+  const [coinsToChart, setCoinsToChart] = useState(defaultCoinsToChart);
 
   useEffect(() => {
     setData({ ...resData });
@@ -34,21 +53,54 @@ function HistoryChart() {
       setArrData(dataArr);
     }
   }, [data]);
-  console.log("data:", data);
-  console.log("arrData:", arrData);
+
+  const chartLines = Object.keys(coinsToChart)
+    .filter(key => coinsToChart[key])
+    .map(key => (
+      <Line
+        type="monotone"
+        dataKey={key}
+        stroke={defaultChartColors[key]}
+        key={key}
+      />
+    ));
+
   return (
-    <div>
+    <>
       Start Date:
       <SelectDate dateSetter={setStartDate} defaultDate={startDate} />
       End Date:
       <SelectDate dateSetter={setEndDate} defaultDate={endDate} />
-      <LineChart width={500} height={300} data={arrData}>
-        <XAxis dataKey="name" />
-        <YAxis />
-        <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
-        <Line type="monotone" dataKey="BTC" stroke="#8884d8" />
-        <Line type="monotone" dataKey="ETH" stroke="#82ca9d" />
-      </LineChart>
+      <div style={{ display: "flex" }}>
+        <LineChart width={500} height={400} data={arrData}>
+          <XAxis dataKey="name" />
+          <YAxis />
+          <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
+          {chartLines}
+        </LineChart>
+        <SelectCoins coinList={coinsToChart} setCoinList={setCoinsToChart} />
+      </div>
+    </>
+  );
+}
+
+function SelectCoins(props) {
+  const { coinList, setCoinList } = props;
+  const selectionJSX = Object.keys(coinList).map(key => (
+    <li key={key} className="list-group-item">
+      <label className="px-2">{key}</label>
+      <input
+        type="checkbox"
+        defaultChecked={coinList[key]}
+        onChange={e => setCoinList({ ...coinList, [key]: !coinList[key] })}
+      />
+    </li>
+  ));
+  return (
+    <div style={{ width: 125 }}>
+      <form>
+        <ul className="list-group">{selectionJSX}</ul>
+      </form>
     </div>
   );
 }

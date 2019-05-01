@@ -35,7 +35,7 @@ export function useDataRange(startDate, endDate) {
   useEffect(() => {
     const reqURL = `https://api.coinlayer.com/timeframe?access_key=${KEY_BUFF.toString(
       "ascii"
-    )}&start_date=${startDate}&end_date=${endDate}&symbols=BTC,ETH`;
+    )}&start_date=${startDate}&end_date=${endDate}&symbols=BTC,ETH,XRP,EOS,LTC,BCH,BNB`;
     queryCoinLayerAPI(reqURL, setData);
   }, [startDate, endDate]);
   return data;
