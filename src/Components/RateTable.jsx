@@ -18,7 +18,6 @@ function RateTable(props) {
   // hook to catch changes in data (used when changing calendar dates):
   useEffect(() => {
     setRates({ ...props.data.rates });
-    console.log("setting rates...");
   }, [props.data]);
 
   // convert data object into array for sorting &rendering:
