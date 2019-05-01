@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "2ae7f339fa9d24b9359058ab16fe02a8",
+    "revision": "528f1a381719ea6317a0de890425ad64",
     "url": "/blockchain-spa/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/blockchain-spa/static/css/2.c7bb94bc.chunk.css"
   },
   {
-    "revision": "5be254752e6aa524d2c9",
+    "revision": "5c41d975c3710a39d7e4",
     "url": "/blockchain-spa/static/css/main.d3c7aca9.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/blockchain-spa/static/js/2.c00d8d8b.chunk.js"
   },
   {
-    "revision": "5be254752e6aa524d2c9",
-    "url": "/blockchain-spa/static/js/main.ba6fddbe.chunk.js"
+    "revision": "5c41d975c3710a39d7e4",
+    "url": "/blockchain-spa/static/js/main.dea769e4.chunk.js"
   },
   {
     "revision": "072d54c4ffd050973063",
