@@ -37,7 +37,6 @@ export function useHistoricalRate(date) {
 
 export function useDataRange(startDate, endDate) {
   // "Timeframe" endpoint - request a range of values. This powers the graph component.
-  console.log("useRates - startDate:", startDate, "endDate:", endDate);
   const [data, setData] = useState({});
   useEffect(() => {
     const reqURL = `https://api.coinlayer.com/timeframe?access_key=${KEY_BUFF.toString(
@@ -53,10 +52,9 @@ function queryCoinLayerAPI(reqURL, setData) {
   axios
     .get(reqURL)
     .then(response => {
-      console.log(response);
       setData(response.data);
     })
     .catch(error => {
-      console.log(error);
+      console.error(error);
     });
 }
