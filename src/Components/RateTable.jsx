@@ -1,7 +1,12 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react-hooks/exhaustive-deps */
 
+/*
+  A table component for displaying a sortable list of coin prices.
+*/
+
 import React, { useState, useEffect } from "react";
+// Components:
 import SortArrow from "./SortArrow";
 import Coin from "./Coin";
 

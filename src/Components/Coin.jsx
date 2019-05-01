@@ -1,17 +1,27 @@
+/*
+  This component is for displaying the name of a cryptocurrency
+  with an onHover effect that displays a link, picture, and
+  basic info about the coin.
+  To use, pass in a name prop ("BTC")
+*/
+
 import React from "react";
 import Popup from "reactjs-popup";
 
 export default function Coin(props) {
   const { name } = props;
   const info = list[name];
+  // Renders a Popup component. The Popup's trigger prop contains the element that is always rendered.
+  // The card within is only rendered on hover over the span below.
   return (
-    <Popup trigger={<span>{name}</span>} position="right top" on="hover">
+    <Popup trigger={<span>{name}</span>} position="left bottom" on="hover">
       <Card info={info} />
     </Popup>
   );
 }
 
 const Card = ({ info }) => (
+  // This card must be triggered to render.
   <div className="card">
     <div className="header">
       <a
@@ -33,6 +43,9 @@ const Card = ({ info }) => (
     </div>
   </div>
 );
+
+// This is all the data returned by the info endpoint.
+// Since this is mostly static I'm just caching this for now.
 
 const list = {
   "611": {

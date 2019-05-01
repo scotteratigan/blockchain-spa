@@ -1,5 +1,11 @@
+/*
+  Currently unused component - gives current-day quotes.
+*/
+
+// Libraries:
 import React from "react";
 import RateTable from "./RateTable";
+// Hooks:
 import { useLiveRates } from "../Hooks/useRates";
 
 export default function LiveRates() {
