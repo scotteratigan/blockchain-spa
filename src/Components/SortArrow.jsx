@@ -1,34 +1,24 @@
-import React, { useState } from "react";
-
-const containerStyle = {
-  width: 25,
-  display: "flex",
-  flexDirection: "column"
-};
+import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function SortArrow(props) {
-  const [arrSelected, setArrSelected] = useState("");
   const { setSort, column } = props;
   return (
-    <div style={containerStyle}>
+    <>
       <button
-        style={arrSelected === "up" ? { fontWeight: "bold" } : null}
-        onClick={() => {
-          setArrSelected("up");
-          setSort(`${column}-asc`);
-        }}
+        className="btn"
+        onClick={() => setSort(`${column}-asc`)}
+        style={{ margin: 0, padding: 2 }}
       >
-        ^
+        <FontAwesomeIcon icon="sort-up" />
       </button>
       <button
-        style={arrSelected === "down" ? { fontWeight: "bold" } : null}
-        onClick={() => {
-          setArrSelected("down");
-          setSort(`${column}-dsc`);
-        }}
+        className="btn"
+        onClick={() => setSort(`${column}-dsc`)}
+        style={{ margin: 0, padding: 2 }}
       >
-        v
+        <FontAwesomeIcon icon="sort-down" />
       </button>
-    </div>
+    </>
   );
 }

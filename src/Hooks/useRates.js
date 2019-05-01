@@ -3,7 +3,6 @@ const ENCODED_KEY = "M2UzZTE4MWZmYThlZDY5YTRkOGRkZjNlZTI1NzJlZGU=";
 const KEY_BUFF = new Buffer(ENCODED_KEY, "base64");
 const BASE_URL = "http://api.coinlayer.com/api";
 const axios = require("axios");
-// const liveData = true; // only used during development to avoid api limits
 
 export function useLiveRates() {
   // "live" endpoint - request the most recent cryptocurrency rates
@@ -21,15 +20,32 @@ export function useLiveRates() {
 export function useHistoricalRate(date) {
   const [data, setData] = useState({});
   useEffect(() => {
-    console.log("date:", date);
     if (date && date !== "Invalid date") {
       const reqURL = `${BASE_URL}/${date}?access_key=${KEY_BUFF.toString(
         "ascii"
       )}`; //&symbols=BTC,ETH
-      console.log("historical request url:", reqURL);
       queryCoinLayerAPI(reqURL, setData);
     }
   }, [date]);
+  return data;
+}
+
+export function useDataRange(startDate, endDate) {
+  // https://api.coinlayer.com/timeframe?access_key=3e3e181ffa8ed69a4d8ddf3ee2572ede&start_date=2018-04-01&end_date=2018-04-30&symbols=BTC,ETH
+  const [data, setData] = useState({});
+  useEffect(() => {
+    const reqURL =
+      "https://api.coinlayer.com/timeframe?access_key=3e3e181ffa8ed69a4d8ddf3ee2572ede&start_date=2018-04-01&end_date=2018-04-30&symbols=BTC,ETH";
+    queryCoinLayerAPI(reqURL, setData);
+    // if (
+    //   startDate &&
+    //   endDate &&
+    //   startDate !== "Invalid date" &&
+    //   endDate !== "Invalid date"
+    // ) {
+    //   //blah
+    // }
+  }, [startDate, endDate]);
   return data;
 }
 

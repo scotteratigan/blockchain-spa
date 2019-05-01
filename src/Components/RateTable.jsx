@@ -10,21 +10,19 @@ function RateTable(props) {
   const [rateArr, setRateArr] = useState([]);
   const [rates, setRates] = useState(props.data.rates);
 
-  // convert object to array of JSX:
-  // const { rates } = props.data;
-
+  // hook to catch changes in data (used when changing calendar dates):
   useEffect(() => {
     setRates({ ...props.data.rates });
     console.log("setting rates...");
   }, [props.data]);
 
+  // convert data object into array for sorting &rendering:
   useEffect(() => {
     if (rates) {
-      console.log("rates received, rendering. rates:", rates);
       const rateKeys = Object.keys(rates);
-      // convert object to array to allow sorting:
-      let newRateArr = [];
+      const newRateArr = [];
       rateKeys.forEach(key => {
+        // each item in the array is in format {name: BTC, value: 5000.2342}
         if (rates[key]) {
           newRateArr.push({ name: key, value: rates[key] });
         }
@@ -33,6 +31,7 @@ function RateTable(props) {
     }
   }, [rates]);
 
+  // Allow users to sort coins by price or name, ascending or descending:
   useEffect(() => {
     switch (currSort) {
       default:
@@ -64,10 +63,12 @@ function RateTable(props) {
     }
   }, [currSort]);
 
+  // If no data display loading message
   if (!props.data || !props.data.success) {
     return <div>Loading data...</div>;
   }
 
+  // Otherwise, render the table of data:
   return (
     <table>
       <thead>
@@ -91,14 +92,16 @@ function RateTable(props) {
   );
 }
 
+// map out each coin to it's own table row for insertion above:
 function TableRows(props) {
   return props.rateArr.map((coin, i) => {
+    const coinStr = coin.value.toFixed(2);
     return (
       <tr key={coin.name}>
         <td>
           <Coin name={coin.name} />
         </td>
-        <td>{coin.value}</td>
+        <td style={{ textAlign: "right" }}>{coinStr}</td>
       </tr>
     );
   });
