@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -6,31 +7,30 @@ import RateTable from "./RateTable";
 import { useHistoricalRate } from "../Hooks/useRates";
 
 function Historical() {
-  const [date, setDate] = useState("");
-  const [fmtDate, setFmtDate] = useState("");
-  // const data = useHistoricalRate(fmtDate);
-  // const [data, setData] = useState({});
+  const [date, setDate] = useState(new Date());
+  const [fmtDate, setFmtDate] = useState(); // todo: remove this by moving into handleDateChange
+  const [data, setData] = useState({});
 
   useEffect(() => {
     setFmtDate(moment(date).format("YYYY-MM-DD"));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [date]);
 
-  // useEffect(() => {
-  //  call useHistoricalRate?
-  // }, [fmtDate]);
-
+  const resData = useHistoricalRate(fmtDate);
+  useEffect(() => {
+    setData({ ...resData });
+  }, [resData]);
+  console.log("data:", data);
   return (
     <div>
       <h5>Historical Price Lookup...</h5>
       Select a date:
       <DatePicker
-        // selected={date}
+        selected={date}
         onChange={val => {
           setDate(val);
         }}
       />
-      <RateTable data={useHistoricalRate(fmtDate)} />
+      <RateTable data={data} />
     </div>
   );
 }

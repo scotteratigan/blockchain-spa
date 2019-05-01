@@ -10,9 +10,7 @@ export function useLiveRates() {
   // http://api.coinlayer.com/api/live?access_key=KEY&symbols=BTC,ETH
   const [data, setData] = useState({});
   useEffect(() => {
-    const reqURL = `${BASE_URL}/live?access_key=${KEY_BUFF.toString(
-      "ascii"
-    )}&symbols=BTC,ETH`;
+    const reqURL = `${BASE_URL}/live?access_key=${KEY_BUFF.toString("ascii")}`; //&symbols=BTC,ETH
     // fetchData(reqURL, setData);
     queryCoinLayerAPI(reqURL, setData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -23,10 +21,11 @@ export function useLiveRates() {
 export function useHistoricalRate(date) {
   const [data, setData] = useState({});
   useEffect(() => {
-    if (date) {
+    console.log("date:", date);
+    if (date && date !== "Invalid date") {
       const reqURL = `${BASE_URL}/${date}?access_key=${KEY_BUFF.toString(
         "ascii"
-      )}&symbols=BTC,ETH`;
+      )}`; //&symbols=BTC,ETH
       console.log("historical request url:", reqURL);
       queryCoinLayerAPI(reqURL, setData);
     }

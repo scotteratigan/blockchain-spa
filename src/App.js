@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import LiveRates from "./Components/LiveRates";
+// import LiveRates from "./Components/LiveRates";
 import Historical from "./Components/Historical";
 
 class App extends React.Component {
@@ -8,7 +8,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <p>This is a work-in-progress app.</p>
-        <LiveRates />
+        {/* <LiveRates /> */}
         <Historical />
       </div>
     );
